@@ -1,37 +1,28 @@
-// L2_4. Write a function to accept an integer (32 bits) and operation type to do the following and return the result to main function.
-//     - Set 2 bits from nth bit position, if operation type is 1
-//     - Clear 3 bits from nth bit position, if operation type is 2
-//     - Toggle MSB, if operation type is 3
-//    You can consider the below function prototype,
-//     - bit_operations(int num, int oper_type, int pos);
-
-#include <stdio.h>
-
-int bit_operations(int num, int oper_type, int pos) {
-    if (oper_type == 1) {
-        int mask = (1 << 2) - 1; // Create a bitmask with 2 bits set
-        mask <<= pos; // Shift the bitmask to the desired position
-        return num | mask; // Set the 2 bits from the specified position
-    } else if (oper_type == 2) {
-        int mask = (1 << 3) - 1; // Create a bitmask with 3 bits set
-        mask <<= pos; // Shift the bitmask to the desired position
-        mask = ~mask; // Negate the bitmask to clear the 3 bits
-        return num & mask; // Clear the 3 bits from the specified position
-    } else if (oper_type == 3) {
-        return num ^ (1 << (sizeof(int) * 8 - 1)); // Toggle the MSB
-    }
-    
-    return num; // Return the original number if oper_type is invalid
+// L2_4. Write a function to find the type of the character passed
+//     - 'A' to 'Z', return 1
+//     - 'a; to 'z', return 2
+//     - '0' to '9', return 3
+//     - Any Other printable symbols, return 4
+//     - Non printable symbols, return 5
+#include<stdio.h>
+#include <ctype.h>
+int type_char(char ch)
+{
+    if(iscntrl(ch))
+        return 5;
+    if(ch>='A' && ch<='Z')
+        return 1;
+    else if(ch>='a' && ch<='z')
+        return 2;
+    else if(ch>='0' && ch<='9')
+        return 3;
+    else 
+        return 4;
 }
-
-int main() {
-    int num = 12345; // Example value
-    int oper_type = 1; // Example operation type
-    int pos = 10; // Example bit position
-    
-    printf("Before operation: %d\n", num);
-    int result = bit_operations(num, oper_type, pos);
-    printf("After operation:  %d\n", result);
-
+int main()
+{
+    char ch;
+    printf("Enter the character : "); scanf("%c",&ch);
+    printf("Output : %d",type_char(ch));
     return 0;
 }
